@@ -654,7 +654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &644936268
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1872,6 +1872,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1327619906}
   - component: {fileID: 1327619907}
+  - component: {fileID: 1327619908}
   m_Layer: 8
   m_Name: SpinningTop
   m_TagString: Untagged
@@ -1944,6 +1945,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1327619908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327619905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b06220783abef3d4ab8e13320232bbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spinSpeed: 100
+  doSpin: 1
+  playerGraphics: {fileID: 1327619905}
 --- !u!1 &1413161208
 GameObject:
   m_ObjectHideFlags: 0
@@ -2178,7 +2194,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 494603017}
         m_MethodName: OnQuickMatchButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -2796,7 +2812,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1867033496
 MonoBehaviour:
   m_ObjectHideFlags: 0
