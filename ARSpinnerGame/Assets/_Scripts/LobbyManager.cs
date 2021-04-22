@@ -1,7 +1,8 @@
 ﻿using Photon.Pun;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
     [Header("Login UI")]
@@ -16,7 +17,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     [Header("Connection Status UI")]
     public GameObject ui_ConnectionStatusGameObject;
+
     public Text connectionStatus;
+
     public bool showConnectionStatus = false;
 
 
@@ -24,19 +27,35 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        ui_LobbyGameObject.SetActive(false);
-        ui_3DGameObject.SetActive(false);
-        ui_ConnectionStatusGameObject.SetActive(false);
-        ui_LoginGameObject.SetActive(true);
+        if (PhotonNetwork.IsConnected)
+        {
+            //Only activate the lobbys UI
+            ui_LobbyGameObject.SetActive(true);
+            ui_3DGameObject.SetActive(true);
+
+            ui_ConnectionStatusGameObject.SetActive(false);
+            ui_LoginGameObject.SetActive(false);
+        }
+        else{
+
+             //Only activate the login UI
+            ui_LobbyGameObject.SetActive(false);
+            ui_3DGameObject.SetActive(false);
+
+            ui_ConnectionStatusGameObject.SetActive(true);
+            ui_LoginGameObject.SetActive(true);
+            
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(showConnectionStatus){
-            connectionStatus.text = "Connection Status: " + PhotonNetwork.NetworkClientState;
+        if (showConnectionStatus)
+        {
+            connectionStatus.text =
+                "Connection Status: " + PhotonNetwork.NetworkClientState;
         }
-        
     }
 
 
@@ -68,7 +87,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnQuickMatchButtonClicked(){
+    public void OnQuickMatchButtonClicked()
+    {
         //SceneManager.LoadScene("Scene_Loading");
         SceneLoader.Instance.LoadScene("Scene_PlayerSelection");
     }
@@ -95,7 +115,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         ui_ConnectionStatusGameObject.SetActive(false);
         showConnectionStatus = true;
         ui_LoginGameObject.SetActive(false);
-
     }
 
 

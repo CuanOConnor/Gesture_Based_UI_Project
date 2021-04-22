@@ -209,8 +209,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnBattleButtonClicked
+      - m_Target: {fileID: 2007803392}
+        m_MethodName: BattleButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -543,8 +543,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnReSelectButtonClicked
+      - m_Target: {fileID: 2007803392}
+        m_MethodName: ReSelectButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2168,8 +2168,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnBackButtonClicked
+      - m_Target: {fileID: 2007803392}
+        m_MethodName: BackButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2564,8 +2564,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnSelectButtonClicked
+      - m_Target: {fileID: 2007803392}
+        m_MethodName: SelectButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3610,6 +3610,15 @@ MonoBehaviour:
   playerSwitcherTransform: {fileID: 1158278241}
   button_next: {fileID: 1289593102}
   button_last: {fileID: 1017666831}
+  playerSelection: 0
+  spinners:
+  - {fileID: 1327619905}
+  - {fileID: 882062676}
+  - {fileID: 174618834}
+  - {fileID: 955095336}
+  playerType: {fileID: 2010573073}
+  ui_Selection: {fileID: 1325910398}
+  ui_AfterSelection: {fileID: 347055307}
 --- !u!4 &2007803393
 Transform:
   m_ObjectHideFlags: 0
