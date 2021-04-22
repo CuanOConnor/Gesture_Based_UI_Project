@@ -1,31 +1,59 @@
-﻿using System.IO;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+
 using Photon.Pun;
+using TMPro;
+using UnityEngine;
 
 public class SetupPlayer : MonoBehaviourPun
 {
+    public TextMeshProUGUI nameText;
+
     // Start is called before the first frame update
     void Start()
     {
-        if(photonView.IsMine){
+        if (photonView.IsMine)
+        {
             //Local player being controlled
             transform.GetComponent<MovementController>().enabled = true;
+
             //Get a handle on local players joystick object
-            transform.GetComponent<MovementController>().joystick.gameObject.SetActive(true); 
+            transform
+                .GetComponent<MovementController>()
+                .joystick
+                .gameObject
+                .SetActive(true);
         }
-        else{
+        else
+        {
             //Network player disable the movement controller for that player
-             transform.GetComponent<MovementController>().enabled = false;
+            transform.GetComponent<MovementController>().enabled = false;
+
             //Disable control of other players character
-            transform.GetComponent<MovementController>().joystick.gameObject.SetActive(false); 
+            transform
+                .GetComponent<MovementController>()
+                .joystick
+                .gameObject
+                .SetActive(false);
         }
+        GetPlayersName();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetPlayersName()
     {
-        
+        //Access players Photon attributes
+        if (nameText != null)
+        {
+            if (photonView.IsMine)
+            {
+                nameText.text = "YOU";
+                nameText.color = Color.red;
+            }
+            else
+            {
+                //Otherwise remote player, display their name
+                nameText.text = photonView.Owner.NickName;
+            }
+        }
     }
 }
