@@ -359,6 +359,7 @@ GameObject:
   - component: {fileID: 2156905774934643503}
   - component: {fileID: 3469765891570586964}
   - component: {fileID: -433391241865770796}
+  - component: {fileID: -4796080991707928722}
   m_Layer: 0
   m_Name: Player4_Defender
   m_TagString: Player
@@ -500,7 +501,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -4796080991707928722}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -517,6 +519,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 4663518797321737070}
+--- !u!114 &-4796080991707928722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4663518797756989780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd2001e14ba60479e828ee4bae4b98d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4663518798063194202
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,15 +1106,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f19d6ba5e6a078f44891bc6dbe03b3aa, type: 3}
---- !u!4 &8923521933065690949 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8481799796529818482, guid: f19d6ba5e6a078f44891bc6dbe03b3aa,
-    type: 3}
-  m_PrefabInstance: {fileID: 1036901117871158327}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7900149118487980626 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7188070282852900453, guid: f19d6ba5e6a078f44891bc6dbe03b3aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1036901117871158327}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8923521933065690949 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8481799796529818482, guid: f19d6ba5e6a078f44891bc6dbe03b3aa,
     type: 3}
   m_PrefabInstance: {fileID: 1036901117871158327}
   m_PrefabAsset: {fileID: 0}
