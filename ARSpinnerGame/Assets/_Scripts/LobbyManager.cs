@@ -5,17 +5,14 @@ using UnityEngine.UI;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
-    [Header("Login UI")]
     public InputField playerNameInputField;
 
     public GameObject ui_LoginGameObject;
 
-    [Header("Lobby UI")]
     public GameObject ui_LobbyGameObject;
 
     public GameObject ui_3DGameObject;
 
-    [Header("Connection Status UI")]
     public GameObject ui_ConnectionStatusGameObject;
 
     public Text connectionStatus;
@@ -23,7 +20,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public bool showConnectionStatus = false;
 
 
-#region Methods
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,15 +33,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             ui_ConnectionStatusGameObject.SetActive(false);
             ui_LoginGameObject.SetActive(false);
         }
-        else{
-
-             //Only activate the login UI
+        else
+        {
+            //Only activate the login UI
             ui_LobbyGameObject.SetActive(false);
             ui_3DGameObject.SetActive(false);
 
             ui_ConnectionStatusGameObject.SetActive(true);
             ui_LoginGameObject.SetActive(true);
-            
         }
     }
 
@@ -59,11 +55,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
 
-#endregion
-
-
-
-#region UI CALLBACK METHODS
     public void OnEnterGameButtonClicked()
     {
         string playerName = playerNameInputField.text;
@@ -94,11 +85,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
 
-#endregion
 
 
 
-#region PHOTON Callback Methods
+
+
     public override void OnConnected()
     {
         Debug.Log("Connected to server");
@@ -118,5 +109,5 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
 
-#endregion
+
 }

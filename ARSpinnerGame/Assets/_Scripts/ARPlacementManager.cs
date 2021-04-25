@@ -14,7 +14,7 @@ public class ARPlacementManager : MonoBehaviour
 
     ARRaycastManager rayCast;
     static List<ARRaycastHit> raycast_Hits = new List<ARRaycastHit>();
-    //ar amera
+    //ar camera object
     public Camera aRCamera;
     //Battle arena gameb object
     public GameObject battleArena;

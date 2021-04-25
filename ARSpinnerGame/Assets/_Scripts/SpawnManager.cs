@@ -22,7 +22,9 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     {
         
     }
-
+    //https://doc-api.photonengine.com/en/pun/v2/class_photon_1_1_pun_1_1_mono_behaviour_pun_callbacks.html
+    //https://doc.photonengine.com/en-us/realtime/current/lobby-and-matchmaking/matchmaking-and-lobby
+    
     public override void OnJoinedRoom(){
 
         if(PhotonNetwork.IsConnectedAndReady){
@@ -31,6 +33,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
             if(PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(MultiplayerARSpinnerTopGame.PLAYER_SELECTION_NUMBER, out playerSelectionNo))
             {
                 Debug.Log("Player selection number is " + (int)playerSelectionNo);
+                //Spawn a random spawn point
                 int spawnPoint = Random.Range(0, spawningPoints.Length -1);
                 //Instantiate position based on random spawn point
                 Vector3 instantiatePlayerPosition = spawningPoints[spawnPoint].position;

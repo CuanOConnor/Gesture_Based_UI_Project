@@ -3,31 +3,45 @@ using System.Collections.Generic;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class PlayerSelectionManager : MonoBehaviour
 {
+    //Switch between players
     public Transform playerSwitcherTransform;
 
+    //Next Button
     public Button button_next;
 
+    //Previous button
     public Button button_last;
 
+    //player selection number (0-4)
     public int playerSelection;
 
+    // Playable characters
     public GameObject[] spinners;
 
+    //Show if player is attack or defensive type
     public TextMeshProUGUI playerType;
-    public GameObject ui_Selection;
-    public GameObject ui_AfterSelection;
 
+    //Selection game object
+    public GameObject ui_Selection;
+
+    //After Selection game object
+    public GameObject ui_AfterSelection;
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        //Show first charcater in the list at the start
         playerSelection = 0;
+
+        //Show Selection panel with needed buttons
         ui_Selection.SetActive(true);
+
+        //Hide panel shown after player selection has been made
         ui_AfterSelection.SetActive(false);
     }
 
@@ -38,6 +52,7 @@ public class PlayerSelectionManager : MonoBehaviour
 
     public void NextPlayer()
     {
+        //Increment player selection by 1
         playerSelection += 1;
 
         if (playerSelection >= spinners.Length)
@@ -46,6 +61,8 @@ public class PlayerSelectionManager : MonoBehaviour
             playerSelection = 0;
         }
         Debug.Log (playerSelection);
+
+        //disabled until round has been finished
         button_next.enabled = false;
         button_last.enabled = false;
 
@@ -64,8 +81,11 @@ public class PlayerSelectionManager : MonoBehaviour
         }
     }
 
+    //Method to use revious button
     public void LastPlayer()
     {
+        //Decrement
+
         playerSelection -= 1;
         if (playerSelection < 0)
         {
@@ -73,6 +93,8 @@ public class PlayerSelectionManager : MonoBehaviour
             playerSelection = spinners.Length - 1;
         }
         Debug.Log (playerSelection);
+
+        //Dont show until full cycle has been finished
         button_next.enabled = false;
         button_last.enabled = false;
 
@@ -94,6 +116,7 @@ public class PlayerSelectionManager : MonoBehaviour
     {
         ui_Selection.SetActive(false);
         ui_AfterSelection.SetActive(true);
+
         //Set a custom properties to players
         ExitGames.Client.Photon.Hashtable selectionProp =
             new ExitGames.Client.Photon.Hashtable {
@@ -103,20 +126,25 @@ public class PlayerSelectionManager : MonoBehaviour
                 }
             };
         PhotonNetwork.LocalPlayer.SetCustomProperties (selectionProp);
-
     }
 
-    public void ReSelectButton(){
+    //Re-select button pressed
+    public void ReSelectButton()
+    {
         ui_Selection.SetActive(true);
         ui_AfterSelection.SetActive(false);
     }
 
-    public void BattleButton(){
+    //Battle button load new scene
+    public void BattleButton()
+    {
         SceneLoader.Instance.LoadScene("Scene_Gameplay");
-
     }
 
-    public void BackButton(){
+    //Go back and load previous scene
+
+    public void BackButton()
+    {
         SceneLoader.Instance.LoadScene("Scene_Lobby");
     }
 

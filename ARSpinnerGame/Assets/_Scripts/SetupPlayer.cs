@@ -36,6 +36,7 @@ public class SetupPlayer : MonoBehaviourPun
                 .gameObject
                 .SetActive(false);
         }
+        //Get the name
         GetPlayersName();
     }
 
@@ -45,7 +46,7 @@ public class SetupPlayer : MonoBehaviourPun
         if (nameText != null)
         {
             if (photonView.IsMine)
-            {
+            {   //Display you over your character
                 nameText.text = "YOU";
                 nameText.color = Color.red;
             }

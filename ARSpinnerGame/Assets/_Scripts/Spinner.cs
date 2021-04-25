@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spinner : MonoBehaviour
 {
+    //Spped of rotation
     public float spinSpeed = 3600;
     public bool doSpin = false;
 
