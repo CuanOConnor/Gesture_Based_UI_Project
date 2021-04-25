@@ -14,41 +14,25 @@ using UnityEngine;
 */
 public class SyncronisationScript : MonoBehaviour, IPunObservable
 {
-    //Rigid body game object
     Rigidbody rb;
-
-    // Instance of photon view
     PhotonView view;
 
-    //Current positon
     Vector3 networkPos;
-
-    //Current rotation
     Quaternion networkRotation;
 
-    //Sync velocity
     public bool syncVelocity = true;
-
-    //Sync anglar velocity velocity
     public bool syncAngularVelocity = true;
-
-    //distance away
-    private float distance;
-
-    //angle
-    private float angle;
-
-    //Tele port enabled
     public bool isTelePort = true;
-
-    //speed
     public float teleport = 1.0f;
+
+    private float distance;
+    private float angle;
 
     private GameObject battleArenaGameobject;
 
+
     private void Awake()
     {
-        //get rigid body
         rb = GetComponent<Rigidbody>();
         view = GetComponent<PhotonView>();
 
@@ -73,21 +57,11 @@ public class SyncronisationScript : MonoBehaviour, IPunObservable
     {
         if (!view.IsMine)
         {
-            //Rigid body position
-            rb.position =
-                //If distance is bigger move quicker
-                Vector3
-                    .MoveTowards(rb.position,
-                    networkPos,
-                    distance * (1.0f / PhotonNetwork.SerializationRate));
+            //If distance is bigger move quicker
+            rb.position = Vector3.MoveTowards(rb.position, networkPos, distance * (1.0f / PhotonNetwork.SerializationRate));
 
-            //Rigid body rotation
             //if angle distance is big rotate quicker
-            rb.rotation =
-                Quaternion
-                    .RotateTowards(rb.rotation,
-                    networkRotation,
-                    angle * (1.0f / PhotonNetwork.SerializationRate)); //Multiplied by 100 to make change more obvious
+            rb.rotation = Quaternion.RotateTowards(rb.rotation, networkRotation, angle * (1.0f / PhotonNetwork.SerializationRate)); //Multiplied by 100 to make change more obvious
         }
     }
 
@@ -145,9 +119,7 @@ public class SyncronisationScript : MonoBehaviour, IPunObservable
                     This is called LAG
 
                 */
-                float lag =
-                    Mathf
-                        .Abs((float)(PhotonNetwork.Time - info.SentServerTime));
+                float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
 
                 if (syncVelocity)
                 {
@@ -167,9 +139,7 @@ public class SyncronisationScript : MonoBehaviour, IPunObservable
                     rb.angularVelocity = (Vector3) stream.ReceiveNext();
 
                     //current position is rigid bodys angualrvelocity * lag
-                    networkRotation =
-                        Quaternion.Euler(rb.angularVelocity * lag) *
-                        networkRotation;
+                    networkRotation = Quaternion.Euler(rb.angularVelocity * lag) * networkRotation;
 
                     //angle
                     angle = Quaternion.Angle(rb.rotation, networkRotation);

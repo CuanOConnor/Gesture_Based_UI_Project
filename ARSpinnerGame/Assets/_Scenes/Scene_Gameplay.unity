@@ -2227,12 +2227,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229513101eee640b9853ae72363d47f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCharacters:
+  playerPrefabs:
   - {fileID: 2523371896380985836, guid: 13c092cb75032fe4997cd193efa999d4, type: 3}
   - {fileID: 1802076417471478439, guid: 35665747fae2c984da63fdefa6af5705, type: 3}
   - {fileID: 2269595059983960058, guid: 70b38378b7c9bea41a50a87f132e7b13, type: 3}
   - {fileID: 4663518797756989780, guid: 0075b5b227e2c5d4da8babe893492b5c, type: 3}
-  spawningPoints:
+  spawnPositions:
   - {fileID: 950113033}
   - {fileID: 931434789}
   - {fileID: 2043065518}
@@ -2720,7 +2720,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
