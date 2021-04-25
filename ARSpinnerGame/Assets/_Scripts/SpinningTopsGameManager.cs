@@ -5,111 +5,121 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 
-public class SpinningTopsGameManager : MonoBehaviourPunCallbacks
+public class SpinningTopsGameManager :MonoBehaviourPunCallbacks
 {
-    [Header("UI")]
-    public GameObject uI_InformPanelGameobject;
-    public TextMeshProUGUI uI_InformText;
+
+    
+    public GameObject informationPanel;
+    public TextMeshProUGUI informationText;
     public GameObject searchForGamesButtonGameobject;
-    public GameObject adjust_Button;
-    public GameObject raycastCenter_Image;
+    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        uI_InformPanelGameobject.SetActive(true);
+        informationPanel.SetActive(true);
+        informationText.text = "Search For Games to BATTLE!";
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
-    #region UI Callback Methods
     public void JoinRandomRoom()
     {
-        uI_InformText.text = "Searching for available rooms...";
+        informationText.text = "Searching for available rooms...";
+
         PhotonNetwork.JoinRandomRoom();
+
         searchForGamesButtonGameobject.SetActive(false);
+
+
     }
 
 
-    public void OnQuitMatchButtonClicked()
+    public void QuitButton()
     {
+
         if (PhotonNetwork.InRoom)
         {
-            PhotonNetwork.LeaveRoom();// exit room
+            PhotonNetwork.LeaveRoom();
+
         }
         else
         {
             SceneLoader.Instance.LoadScene("Scene_Lobby");
         }
-    }
-    #endregion
+        
 
-    #region PHOTON Callback Methods
+
+    }
+    
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-
+      
         Debug.Log(message);
-        uI_InformText.text = message;
+        informationText.text = message;
 
-        CreateAndJoinRoom();
+        CreateAndJoin();
     }
+
 
     public override void OnJoinedRoom()
     {
-        adjust_Button.SetActive(false);
-        raycastCenter_Image.SetActive(false);
 
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            uI_InformText.text = "Joined to " + PhotonNetwork.CurrentRoom.Name + ". Waiting for other players...";
+            informationText.text = "Joined to " + PhotonNetwork.CurrentRoom.Name + ". Waiting for other players...";
+
+
         }
         else
         {
-            uI_InformText.text = "Joined to " + PhotonNetwork.CurrentRoom.Name;
-            StartCoroutine(DeactivateAfterSeconds(uI_InformPanelGameobject, 2.0f));
+            informationText.text = "Joined to " + PhotonNetwork.CurrentRoom.Name;
+            StartCoroutine(DeactivateAfterSeconds(informationPanel, 2.0f));
         }
 
-        Debug.Log(" joined to " + PhotonNetwork.CurrentRoom.Name);
+        Debug.Log( " joined to "+ PhotonNetwork.CurrentRoom.Name);
     }
 
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log(newPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name + " Player count " + PhotonNetwork.CurrentRoom.PlayerCount);
-        uI_InformText.text = newPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name + " Player count " + PhotonNetwork.CurrentRoom.PlayerCount;
+        Debug.Log(newPlayer.NickName + " joined to "+ PhotonNetwork.CurrentRoom.Name+ " Player count "+ PhotonNetwork.CurrentRoom.PlayerCount);
+        informationText.text = newPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name + " Player count " + PhotonNetwork.CurrentRoom.PlayerCount;
 
-        StartCoroutine(DeactivateAfterSeconds(uI_InformPanelGameobject, 2.0f));
+        StartCoroutine(DeactivateAfterSeconds(informationPanel, 2.0f));
+
+
     }
 
-    // when room is exited call...
-    public override void OnLeftRoom()
+
+   public override void OnLeftRoom()
     {
         SceneLoader.Instance.LoadScene("Scene_Lobby");
     }
 
-    #endregion
-
-    #region PRIVATE Methods
-    void CreateAndJoinRoom()
+    void CreateAndJoin()
     {
-        string randomRoomName = "Room" + Random.Range(0, 1000);
+        //Choose a random room between 0 and 1000
+        string roomName = "Room" + Random.Range(0,1000);
+        //Set max players
+        RoomOptions options = new RoomOptions();
+        options.MaxPlayers = 2;
 
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 2;
+        //Creating the room passing name and options
+        PhotonNetwork.CreateRoom(roomName,options);
 
-        //Creatin the room
-        PhotonNetwork.CreateRoom(randomRoomName, roomOptions);
     }
 
     IEnumerator DeactivateAfterSeconds(GameObject _gameObject, float _seconds)
     {
         yield return new WaitForSeconds(_seconds);
         _gameObject.SetActive(false);
-    }
 
-    #endregion
+    }
 }
