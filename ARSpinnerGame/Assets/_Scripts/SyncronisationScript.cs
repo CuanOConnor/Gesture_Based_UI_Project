@@ -44,6 +44,8 @@ public class SyncronisationScript : MonoBehaviour, IPunObservable
     //speed
     public float teleport = 1.0f;
 
+    private GameObject battleArenaGameobject;
+
     private void Awake()
     {
         //get rigid body
@@ -52,6 +54,8 @@ public class SyncronisationScript : MonoBehaviour, IPunObservable
 
         networkPos = new Vector3();
         networkRotation = new Quaternion();
+
+        battleArenaGameobject = GameObject.Find("BattleArena");
     }
 
     // Start is called before the first frame update
@@ -90,10 +94,7 @@ public class SyncronisationScript : MonoBehaviour, IPunObservable
     /*
         Photon stream is a container class that sends and receives data to and from a photo beam.
     */
-    public void OnPhotonSerializeView(
-        PhotonStream stream,
-        PhotonMessageInfo info
-    )
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         //Stream is a container that sends and recieves data to and from a photon view.
         if (stream.IsWriting)
@@ -101,7 +102,7 @@ public class SyncronisationScript : MonoBehaviour, IPunObservable
             //Writing data
             //If this photn view is belonging to me.
             //I am controlling this player. Send position and velocity data to the other player
-            stream.SendNext(rb.position);
+            stream.SendNext(rb.position - battleArenaGameobject.transform.position);
             stream.SendNext(rb.rotation);
 
             if (syncVelocity)
@@ -120,8 +121,8 @@ public class SyncronisationScript : MonoBehaviour, IPunObservable
         {
             //reading data
             //Player game object which exists in the remote players game
-            networkPos = (Vector3) stream.ReceiveNext();
-            networkRotation = (Quaternion) stream.ReceiveNext();
+            networkPos = (Vector3)stream.ReceiveNext() + battleArenaGameobject.transform.position; // also send our arena postion
+            networkRotation = (Quaternion)stream.ReceiveNext();
 
             //if teleport is set to true
             if (isTelePort)

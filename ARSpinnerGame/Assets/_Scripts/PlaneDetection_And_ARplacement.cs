@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using TMPro;
 
-public class PlaneDection_And_ARplacement : MonoBehaviour
+public class PlaneDetection_And_ARPlacement : MonoBehaviour
 {
     //Access the plane manager script
     ARPlaneManager planeManager;
@@ -16,34 +16,28 @@ public class PlaneDection_And_ARplacement : MonoBehaviour
     public GameObject adjustButton;
     //Search for a game 
     public GameObject checkforGameButton;
-
-    //public GameObject scaleSlider;
-
+    //Inform the player about the current state of the game
     public TextMeshProUGUI informationPanel;
-
 
     private void Awake()
     {
         //Get the components
         planeManager = GetComponent<ARPlaneManager>();
         placementManager = GetComponent<ARPlacementManager>();
-
     }
-
 
     // Start is called before the first frame update
     void Start()
     {
-        //Activate buttons
+        //Activate place buttons
         placeButton.SetActive(true);
-       // scaleSlider.SetActive(true);
-        //deactivate buttons
+       
+        //deactivate adjust and check for game buttons
         adjustButton.SetActive(false);
         checkforGameButton.SetActive(false);
         
-
-        informationPanel.text = "Move phone to detect planes and place the Battle Arena!";
-
+        //update the information panel
+        informationPanel.text = "Move phone to detect planes and place the Arena!";
     }
 
     // Update is called once per frame
@@ -52,21 +46,23 @@ public class PlaneDection_And_ARplacement : MonoBehaviour
         
     }
 
-    public void disableDectection()
+    public void disableDetection()
     {
+        //disable plane manager
         planeManager.enabled = false;
+        //disable placement manager
         placementManager.enabled = false;
+        //Activation method param is set to false
         activation(false);
-
-       // scaleSlider.SetActive(false);
-
+ 
+        // Place button not shown
         placeButton.SetActive(false);
+        // Adjust button shown
         adjustButton.SetActive(true);
+        // Search game button shown
         checkforGameButton.SetActive(true);
-
+         //update the information panel
         informationPanel.text = "You have been placed. Search for a battle";
-
-
     }
 
     public void enableDetection()
@@ -76,21 +72,16 @@ public class PlaneDection_And_ARplacement : MonoBehaviour
         //Enable placement manager to make placements
         placementManager.enabled = true;
         //Set action to true
-        activation(true);
-        //Activate slider
-        //scaleSlider.SetActive(true);
+        activation(true);       
         //Activate place button
         placeButton.SetActive(true);
          //deactivate adjust button
         adjustButton.SetActive(false);
           //deactivate check for game button
         checkforGameButton.SetActive(false);
-
+         //update the information panel
         informationPanel.text = "move your phone to find a suitable surface";  
     }
-
-
-
 
     private void activation(bool isActive)
     {

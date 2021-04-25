@@ -7,22 +7,20 @@ using TMPro;
 
 public class SpinningTopsGameManager :MonoBehaviourPunCallbacks
 {
-
     // Information panel game object
     public GameObject informationPanel;
     // Information panel game object text
     public TextMeshProUGUI informationText;
     //Search or games button
     public GameObject searchForGamesButtonGameobject;
-    
-
+    public GameObject adjust_Button;
+    public GameObject raycastCenter_Image;
 
     // Start is called before the first frame update
     void Start()
     {   //Activate information panel
         informationPanel.SetActive(true);
         informationText.text = "Search For Games.....";
-
     }
 
     // Update is called once per frame
@@ -39,8 +37,6 @@ public class SpinningTopsGameManager :MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRandomRoom();
         //Deactivate button
         searchForGamesButtonGameobject.SetActive(false);
-
-
     }
 
     //Exit out of the room
@@ -49,20 +45,16 @@ public class SpinningTopsGameManager :MonoBehaviourPunCallbacks
 
     public void QuitButton()
     {
-
         if (PhotonNetwork.InRoom)
         {
             PhotonNetwork.LeaveRoom();
-
         }
         else
         {   //Load lobby scene
             SceneLoader.Instance.LoadScene("Scene_Lobby");
-        }
-        
-
-
+        }      
     }
+
     //If joining a room has failed
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
@@ -74,16 +66,16 @@ public class SpinningTopsGameManager :MonoBehaviourPunCallbacks
         CreateAndJoin();
     }
 
-
     public override void OnJoinedRoom()
     {
+        adjust_Button.SetActive(false);
+        raycastCenter_Image.SetActive(false);
+
         //If there is only 1 other player in the room
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
             //display message
             informationText.text = "Joined to " + PhotonNetwork.CurrentRoom.Name + ". Waiting for other players...";
-
-
         }
         else
         {   //display message
@@ -100,14 +92,11 @@ public class SpinningTopsGameManager :MonoBehaviourPunCallbacks
         Display a message and deactivate after 2 seconds
     */
     public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        
+    {      
         Debug.Log(newPlayer.NickName + " joined to "+ PhotonNetwork.CurrentRoom.Name+ " Player count "+ PhotonNetwork.CurrentRoom.PlayerCount);
         informationText.text = newPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name + " Player count " + PhotonNetwork.CurrentRoom.PlayerCount;
 
         StartCoroutine(DeactivateAfterSeconds(informationPanel, 2.0f));
-
-
     }
 
     //When the lobby has been left load lobby scene
@@ -126,13 +115,11 @@ public class SpinningTopsGameManager :MonoBehaviourPunCallbacks
 
         //Creating the room passing name and options
         PhotonNetwork.CreateRoom(roomName,options);
-
     }
     //Deactiavte panels
     IEnumerator DeactivateAfterSeconds(GameObject _gameObject, float _seconds)
     {
         yield return new WaitForSeconds(_seconds);
         _gameObject.SetActive(false);
-
     }
 }
