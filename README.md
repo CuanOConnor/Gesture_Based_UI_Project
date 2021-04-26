@@ -5,6 +5,9 @@
 
 Unity version 2021.1.4f1
 
+**Link to our Screencast/Demo**
+ - https://www.youtube.com/watch?v=zfhtmi-3_mk
+
 ## About the game
 This application is a part of our Gesture-based Ui development course. The application is an augmented reality application. You play as spinners (Or Beyblades) in a battle dome. In a real-world setting. The game incorporates multiplayer functionality so you are playing against people online. There are 4 playable characters. Two attack types and 2 Defense types. The point of the game is to take your opponents' health by banging into them, the first player to lose all of their health dies, but can respawn shortly afterwards.
 
