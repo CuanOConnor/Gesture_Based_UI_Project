@@ -1,7 +1,7 @@
 # Gesture Based UI Project
 
 ## Keith Nolan: G00351932
-## Cuan O'Conner:G00300230
+## Cuan O'Conner: G00300230
 
 Unity version 2021.1.4f1
 
